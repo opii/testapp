@@ -34,8 +34,8 @@
                 <td>{{ $value->id }}</td>
                 <td>{{ $value->title }}</td>
                 <td>
-                    <a class="btn btn-small btn-success" href="{{ URL::to('threads/' . $value->id) }}">Show this Threads</a>
-                    <a class="btn btn-small btn-info" href="{{ URL::to('threads/' . $value->id . '/edit') }}">Edit this Threads</a>
+                    <a class="btn btn-small btn-success" href="{{ URL::to('threads/' . $value->id) }}">Show this Thread</a>
+                    <a class="btn btn-small btn-info" href="{{ URL::to('threads/' . $value->id . '/edit') }}">Edit this Thread</a>
 
                 </td>
             </tr>

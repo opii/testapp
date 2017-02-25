@@ -50,7 +50,7 @@ class ThreadController extends Controller
 
         // process the login
         if ($validator->fails()) {
-            return Redirect::to('nerds/create')
+            return Redirect::to('threads/create')
                 ->withErrors($validator)
                 ->withInput(Input::except('password'));
         } else {
@@ -73,7 +73,9 @@ class ThreadController extends Controller
      */
     public function show($id)
     {
-        //
+        $thread = Thread::find($id);
+        return View::make('thread.show')
+            ->with('thread', $thread);
     }
 
     /**
@@ -84,7 +86,9 @@ class ThreadController extends Controller
      */
     public function edit($id)
     {
-        //
+        $thread = Thread::find($id);
+        return View::make('thread.edit')
+            ->with('thread', $thread);
     }
 
     /**
@@ -93,9 +97,30 @@ class ThreadController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function update($id)
+    public function update(Request $request, $id)
     {
-        //
+        // validate
+        // read more on validation at http://laravel.com/docs/validation
+        $rules = array(
+            'title'       => 'required'
+        );
+        $validator = Validator::make($request->all(), $rules);
+
+        // process the login
+        if ($validator->fails()) {
+            return Redirect::to('threads/' . $id . '/edit')
+                ->withErrors($validator)
+                ->withInput(Input::except('password'));
+        } else {
+            // store
+            $thread = Thread::find($id);
+            $thread->title       = $request->get('title');
+            $thread->save();
+
+            // redirect
+            Session::flash('message', 'Successfully updated nerd!');
+            return Redirect::to('threads');
+        }
     }
 
     /**

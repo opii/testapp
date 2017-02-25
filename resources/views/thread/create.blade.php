@@ -9,8 +9,8 @@
 
     <nav class="navbar navbar-inverse">
         <ul class="nav navbar-nav">
-            <li><a href="{{ URL::to('threads') }}">View All Nerds</a></li>
-            <li><a href="{{ URL::to('threads/create') }}">Create a Nerd</a>
+            <li><a href="{{ URL::to('threads') }}">View All Threads</a></li>
+            <li><a href="{{ URL::to('threads/create') }}">Create a Thread</a>
         </ul>
     </nav>
 

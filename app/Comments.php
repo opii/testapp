@@ -16,7 +16,6 @@ class Comments extends Model
 
     public function replyTo()
     {
-        return $this->hasOne('App\Commnents');
+        return $this->hasOne('App\Comments');
     }
-
 }

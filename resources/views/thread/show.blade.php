@@ -21,6 +21,12 @@
         <p>
             <strong>Title:</strong> {{ $thread->title }}<br>
         </p>
+
+        @foreach ($comments as $comment)
+            <p>Comment:  {{ $comment->text }}</p>
+        @endforeach
+
+
     </div>
 
 </div>

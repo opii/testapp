@@ -20,3 +20,6 @@ Auth::routes();
 Route::get('/home', 'HomeController@index');
 
 Route::resource('threads', 'ThreadController');
+
+Route::get('/comments/create/{id}/{replyto?}', 'CommentController@create');
+Route::post('/comments/store', 'CommentController@store');

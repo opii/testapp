@@ -14,4 +14,9 @@ class Comments extends Model
         return $this->belongsTo('App\Thread');
     }
 
+    public function replyTo()
+    {
+        return $this->hasOne('App\Commnents');
+    }
+
 }

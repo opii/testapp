@@ -18,6 +18,10 @@ class CreateCommentsTable extends Migration
             $table->boolean('visible');
             $table->string('text');
             $table->timestamps();
+            $table->integer('thread_id')->unsigned();
+            $table->integer('reply_to')->unsigned();
+            $table->foreign('thread_id')->references('id')->on('threads');
+            $table->foreign('reply_to')->references('id')->on('comments');
         });
     }
 

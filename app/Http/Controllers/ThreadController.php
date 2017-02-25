@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Thread;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use View;
 use Validator;
 use Redirect;
@@ -42,6 +43,7 @@ class ThreadController extends Controller
      */
     public function store(Request $request)
     {
+        $user = Auth::user();
         // validate
         // read more on validation at http://laravel.com/docs/validation
         $rules = array(
@@ -56,9 +58,10 @@ class ThreadController extends Controller
                 ->withInput(Input::except('password'));
         } else {
             // store
-            $nerd = new Thread;
-            $nerd->title       = $request->get('title');
-            $nerd->save();
+            $thread = new Thread;
+            $thread->title       = $request->get('title');
+            $thread->user()->associate($user);
+            $thread->save();
 
             // redirect
             Session::flash('message', 'Successfully created thread!');
@@ -74,9 +77,12 @@ class ThreadController extends Controller
      */
     public function show($id)
     {
+        /**
+         * @var Thread $thread
+         */
         $thread = Thread::find($id);
-        return View::make('thread.show')
-            ->with('thread', $thread);
+        $comments = $thread->comments();
+        return View::make('thread.show', compact('thread', 'comments'));
     }
 
     /**

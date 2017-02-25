@@ -18,10 +18,7 @@ class CommentController extends Controller
     public function create($id, $replyto=null)
     {
         $thread = Thread::find($id);
-        $parent = null;
-        if($replyto !== null){
-            $parent = Comments::find($replyto);
-        }
+        $parent = $replyto;
         return View::make('comment.create',compact('thread','parent'));
     }
 
@@ -49,7 +46,7 @@ class CommentController extends Controller
             $comment->visible = false;
             $comment->thread()->associate($thread);
             if(isset($parentComment)){
-                $comment->reply_to = $parentComment;
+                $comment->reply_to = $parentComment->id;
             }
             $comment->save();
 

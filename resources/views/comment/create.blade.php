@@ -21,7 +21,6 @@
     {!! Form::hidden('threadid',$thread->id, []) !!}
     @if(!empty($parent))
         {!! Form::hidden('parentid',$parent, []) !!}
-        //
     @endif
 
     {!! Form::submit('Save Comment!', array('class' => 'btn btn-primary')) !!}

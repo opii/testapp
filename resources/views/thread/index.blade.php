@@ -36,6 +36,7 @@
                 <td>
                     <a class="btn btn-small btn-success" href="{{ URL::to('threads/' . $value->id) }}">Show this Thread</a>
                     <a class="btn btn-small btn-info" href="{{ URL::to('threads/' . $value->id . '/edit') }}">Edit this Thread</a>
+                    <a class="btn btn-small btn-info" href="{{ URL::to('comments/create/' . $value->id ) }}">Create comment for this Thread</a>
 
                 </td>
             </tr>

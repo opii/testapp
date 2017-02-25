@@ -80,7 +80,7 @@ class ThreadController extends Controller
          * @var Thread $thread
          */
         $thread = Thread::find($id);
-        $comments = $thread->comments();
+        $comments = $thread->comments;
         return View::make('thread.show', compact('thread', 'comments'));
     }
 

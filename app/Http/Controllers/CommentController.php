@@ -43,7 +43,7 @@ class CommentController extends Controller
         } else {
             $thread = Thread::find($request->get('threadid'));
             $parentid = $request->get('parentid');
-            $parentComment = Comment::find($parentid);
+            $parentComment = Comments::find($parentid);
             $comment = new Comments();
             $comment->text = $request->get('text');
             $comment->visible = false;

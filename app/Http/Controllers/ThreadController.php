@@ -57,7 +57,6 @@ class ThreadController extends Controller
                 ->withErrors($validator)
                 ->withInput(Input::except('password'));
         } else {
-            // store
             $thread = new Thread;
             $thread->title       = $request->get('title');
             $thread->user()->associate($user);
@@ -93,11 +92,16 @@ class ThreadController extends Controller
      */
     public function edit($id)
     {
+        $user = Auth::user();
         $thread = Thread::find($id);
         $created = Carbon::parse($thread->created_at);
         if(Carbon::now()->lte($created->addHours(6))){
-            return View::make('thread.edit')
-                ->with('thread', $thread);
+            if($user->id == $thread->user_id){
+                return View::make('thread.edit')
+                    ->with('thread', $thread);
+            } else {
+                return Redirect::to('threads')->withMessage('You are not alowed to edit this thread');
+            }
         } else {
             return Redirect::to('threads')->withMessage('Thread created more than 6 hours ago');
         }

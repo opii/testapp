@@ -42,11 +42,15 @@ class CommentController extends Controller
                 ->withInput(Input::except('password'));
         } else {
             $thread = Thread::find($request->get('threadid'));
+            $parentid = $request->get('parentid');
+            $parentComment = Comment::find($parentid);
             $comment = new Comments();
             $comment->text = $request->get('text');
             $comment->visible = false;
             $comment->thread()->associate($thread);
-            $comment->reply_to = $comment->id;
+            if(isset($parentComment)){
+                $comment->reply_to = $parentComment;
+            }
             $comment->save();
 
             // redirect

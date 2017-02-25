@@ -9,6 +9,7 @@ use Validator;
 use Redirect;
 use Session;
 use Input;
+use Carbon\Carbon;
 
 class ThreadController extends Controller
 {
@@ -87,8 +88,13 @@ class ThreadController extends Controller
     public function edit($id)
     {
         $thread = Thread::find($id);
-        return View::make('thread.edit')
-            ->with('thread', $thread);
+        $created = Carbon::parse($thread->created_at);
+        if(Carbon::now()->lte($created->addHours(6))){
+            return View::make('thread.edit')
+                ->with('thread', $thread);
+        } else {
+            return Redirect::to('threads')->withMessage('Thread created more than 6 hours ago');
+        }
     }
 
     /**
